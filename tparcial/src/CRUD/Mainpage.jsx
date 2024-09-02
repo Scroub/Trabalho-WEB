@@ -17,7 +17,7 @@ const Mainpage = () => {
                     <Routes>
                         <Route path="cadastrarPokemon" element={<Cadastrar />}/>
                         <Route path="listarPokemon" element={<Listar />}/>
-                        <Route path="editarPokemon" element={<Editar />}/>
+                        <Route path="editarPokemon/:id" element={<Editar />}/>
                         <Route path="removerPokemon" element={<Remover />}/>
                     </Routes>
             </Container>

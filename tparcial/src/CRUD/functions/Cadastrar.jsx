@@ -4,7 +4,7 @@ import { useState } from "react"
 const Cadastrar = () => {
 
     const [nome, setNome] = useState ("")
-    const [idpoke, setIdpoke] = useState ("")
+   
     const [tipagem, setTipagem ] = useState ("Steel")
     const [tipagem2, setTipagem2] = useState ("Steel")
     const [numeroImagem, setNumeroImagem] = useState ("0")
@@ -36,15 +36,7 @@ const Cadastrar = () => {
                     onChange={(event) => setNome(event.target.value)}
                 />
 
-                <TextField 
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="number"
-                    name="numberID"
-                    label="ID do Pokemon"
-                    onChange={(event) => setIdpoke(event.target.value)}
-                />
+                
             
                 <FormControl sx={{width:110 ,mt:2, mr:4}}>
                     <InputLabel id="Type1-label">Tipo 1</InputLabel>
@@ -111,7 +103,14 @@ const Cadastrar = () => {
                     id="numberImg"
                     name="numberImg"
                     label="Numero da Imagem"
-                    onChange={(event) => setNumeroImagem(event.target.value)}
+                    type="number"
+                    onChange={
+                        (event) => { 
+                            var spriteNumber = event.target.value;
+                            spriteNumber = event.target.value < 0 ? 0 : event.target.value;
+                            setNumeroImagem(spriteNumber);
+                        }
+                    }
                 />
 
                 <br />
