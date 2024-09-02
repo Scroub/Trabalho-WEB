@@ -73,7 +73,7 @@ const Mymenu = () => {
                     }}>
                         {dropRemoverMenu()} 
 
-                        <Button sx={{color:"white", my:2}}>
+                        <Button href="listarPokemon" sx={{color:"white", my:2}}>
                             Listar
                         </Button>
 
