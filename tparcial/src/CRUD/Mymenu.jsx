@@ -25,7 +25,7 @@ const Mymenu = () => {
                 <Button sx={{color:"white", my:2}}
                         onClick={handleOpenRemove}
                 >
-                    Cadastrar
+                    Listar
                 </Button>
                 
                 <Menu
@@ -36,16 +36,16 @@ const Mymenu = () => {
                     <MenuItem
                         onClick={handleCloseRemove}
                         component={Link}
-                        to={"cadastrarPokemon"}
+                        to={"listarPokemon"}
                     >
-                        Cadastrar
+                        Listar todos
                     </MenuItem>
                     <MenuItem
                         onClick={handleCloseRemove}
                         component={Link}
-                        to={"editarPokemon"}
+                        to={`listarPokemon/${1}`}
                     >
-                        Editar
+                        Listar ID
                     </MenuItem>
                 </Menu>
             </Box>
@@ -71,15 +71,13 @@ const Mymenu = () => {
                         width:"100%",
                         justifyContent:"flex-end"
                     }}>
-                        {dropRemoverMenu()} 
-
-                        <Button component={Link} to="listarPokemon" sx={{color:"white", my:2}}>
-                            Listar
+                         
+                        <Button component={Link} to="cadastrarPokemon" sx={{color:"white", my:2}}>
+                            Cadastrar
                         </Button>
 
-                        <Button sx={{color:"white", my:2}}>
-                            Remover
-                        </Button>                   
+                        {dropRemoverMenu()}        
+                                
                     </Box>
                 </Toolbar>
             </Container>

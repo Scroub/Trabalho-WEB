@@ -7,7 +7,6 @@ import { Container } from '@mui/material'
 import Cadastrar from './functions/Cadastrar'
 import Listar from './functions/Listar'
 import Editar from './functions/Editar'
-import Remover from './functions/Remover'
 
 const Mainpage = () => {
     return (
@@ -18,7 +17,6 @@ const Mainpage = () => {
                         <Route path="cadastrarPokemon" element={<Cadastrar />}/>
                         <Route path="listarPokemon" element={<Listar />}/>
                         <Route path="editarPokemon/:id" element={<Editar />}/>
-                        <Route path="removerPokemon" element={<Remover />}/>
                     </Routes>
             </Container>
         </BrowserRouter>

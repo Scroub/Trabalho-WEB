@@ -1,43 +1,38 @@
 import { TextField, Typography, Box, InputLabel, Select, MenuItem, FormControl, Button } from "@mui/material"
+import axios from "axios"
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 
 const Editar = () => {
 
     let { id } = useParams()
+    const navigate = useNavigate()
 
     const [nome, setNome] = useState ("")
-    const [tipagem, setTipagem ] = useState ("Steel")
-    const [tipagem2, setTipagem2] = useState ("Steel")
-    const [numeroImagem, setNumeroImagem] = useState ("0")
-    const pokemons = [
-        {sprite:"1", nome:"pikachu", id:0, tipo:"Steel", tipo2:"Fire"},
-        {sprite:"5", nome:"pihu", id:1, tipo:"Steel", tipo2:"Fire"}
-    ]
-
-    function getPokemonById(id){
-        for(let i=0;i<pokemons.length;i++)
-            if(id == pokemons[i].id) return pokemons[i]
-        return null
-    }
+    const [tipo, setTipo ] = useState ("Steel")
+    const [tipo2, setTipo2] = useState ("Steel")
+    const [sprite, setSprite] = useState ("0")
+    
 
     useEffect(
         () => {
-            let pokemon = getPokemonById(id)
-            setNome(pokemon.nome)
-            setTipagem(pokemon.tipo)
-            setTipagem2(pokemon.tipo2)
-            setNumeroImagem(pokemon.sprite)
+            axios.get(`http://localhost:3001/pokemons/${id}`).then((response)=>{ 
+                setSprite(response.data.sprite)
+                setNome(response.data.nome)
+                setTipo(response.data.tipo)
+                setTipo2(response.data.tipo2)
+                }
+            )
+            .catch(error=>(console.log(error)))
         },
         []
     )
 
-    
-
-
     function handleSubmit(event){
         event.preventDefault()
-        alert("Pokemon Cadastrado")
+        const pokemonAtualizado = {sprite, nome, tipo, tipo2}
+        axios.put(`http://localhost:3001/pokemons/${id}`, pokemonAtualizado).then((response)=> { alert("Pokemon Atualizado"); navigate("/listarPokemon") })
+        .catch(error=>(console.log(error)))
         
     }
 
@@ -68,8 +63,8 @@ const Editar = () => {
                     <Select
                         labelId="Type1-label"
                         label="Type1"
-                        value = {tipagem}
-                        onChange={(event) => setTipagem(event.target.value)}
+                        value = {tipo}
+                        onChange={(event) => setTipo(event.target.value)}
                     >
                         <MenuItem value='Steel'>Steel</MenuItem>
                         <MenuItem value='Water'>Water</MenuItem>
@@ -97,8 +92,8 @@ const Editar = () => {
                     <Select
                         labelId="Type2-label"
                         label="Type2"
-                        value = {tipagem2}
-                        onChange={(event) => setTipagem2(event.target.value)}
+                        value = {tipo2}
+                        onChange={(event) => setTipo2(event.target.value)}
                     >
                         <MenuItem value='Steel'>Steel</MenuItem>
                         <MenuItem value='Water'>Water</MenuItem>
@@ -129,19 +124,19 @@ const Editar = () => {
                     name="numberImg"
                     label="Numero da Imagem"
                     type="number"
-                    value={numeroImagem}
+                    value={sprite}
                     onChange={
                         (event) => { 
                             var spriteNumber = event.target.value;
                             spriteNumber = event.target.value < 0 ? 0 : event.target.value;
-                            setNumeroImagem(spriteNumber);
+                            setSprite(spriteNumber);
                         }
                     }
                 />
 
                 <br />
 
-                <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${numeroImagem}.png `} style={{width:"100px"}}/>
+                <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${sprite}.png `} style={{width:"100px"}}/>
 
                 <Button
                     type="submit"

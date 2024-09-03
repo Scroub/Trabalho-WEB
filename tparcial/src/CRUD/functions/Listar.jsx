@@ -2,21 +2,29 @@ import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, 
 import IconButton from "@mui/material/IconButton"
 import { Delete, Edit } from "@mui/icons-material"
 import { Link } from "react-router-dom"
+import { useEffect, useState } from "react"
+import axios from "axios"
 
 const Listar = () => {
 
-    /*const [pokemons, setPokemons] = useState ([])*/
-
-    const pokemons = [
-        {sprite:"1", nome:"pikachu", id:0, tipo:"Steel", tipo2:"Fire"},
-        {sprite:"5", nome:"pihu", id:1, tipo:"Steel", tipo2:"Fire"}
-    ]
+    const [pokemons, setPokemons] = useState ([])
+    
+    useEffect(
+        ()=> {
+            axios.get("http://localhost:3001/pokemons").then((response)=>{ setPokemons(response.data) })
+            .catch(error => console.log(error))
+        }, []
+    )
 
     function deletePokemonById (id){
         if(window.confirm("Deseja excluir?")){
             alert("Pokemon excluido com sucesso!")
+            axios.delete(`http://localhost:3001/pokemons/${id}`).then((response)=>{ 
+                const novaLista = pokemons.filter(pokemon => pokemon.id != id)
+                setPokemons(novaLista)
+             })
+            .catch(error=>console.log(error))
         }
-
     }
 
    return(  
