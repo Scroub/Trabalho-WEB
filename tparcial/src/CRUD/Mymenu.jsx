@@ -6,42 +6,42 @@ import { Link } from "react-router-dom";
 
 const Mymenu = () => {
 
-    // Aqui Criei uma variavel de estado para realizar uma ancoraragem ao botão Remove e apresentar o menu Dropdown
-    const [anchorElRemove, setAnchorElRemove] = useState(null)
+    // Aqui Criei uma variavel de estado para realizar uma ancoragem ao botão Listar
+    const [anchorElListar, setAnchorElListar] = useState(null)
 
     // Abri uma função para disparar um evento ao clickar no botão de Remove
-    const handleOpenRemove = (event) => {
-        setAnchorElRemove(event.currentTarget)
+    const handleOpenListar = (event) => {
+        setAnchorElListar(event.currentTarget)
     }
 
     // Está Função é para setar o valor de state para "null" fazendo com que ao clickar fora do botão remove, o menu acabe desaparecendo
-    const handleCloseRemove = () => {
-        setAnchorElRemove(null)
+    const handleCloseListar = () => {
+        setAnchorElListar(null)
     }
 
-    function dropRemoverMenu() {
+    function dropListarMenu() {
         return (
             <Box>
                 <Button sx={{color:"white", my:2}}
-                        onClick={handleOpenRemove}
+                        onClick={handleOpenListar}
                 >
                     Listar
                 </Button>
                 
                 <Menu
-                    anchorEl={anchorElRemove}
-                    open={Boolean(anchorElRemove)}
-                    onClose={handleCloseRemove}
+                    anchorEl={anchorElListar}
+                    open={Boolean(anchorElListar)}
+                    onClose={handleCloseListar}
                 >
                     <MenuItem
-                        onClick={handleCloseRemove}
+                        onClick={handleCloseListar}
                         component={Link}
                         to={"listarPokemon"}
                     >
                         Listar todos
                     </MenuItem>
                     <MenuItem
-                        onClick={handleCloseRemove}
+                        onClick={handleCloseListar}
                         component={Link}
                         to={`listarPokemon/${1}`}
                     >
@@ -76,7 +76,7 @@ const Mymenu = () => {
                             Cadastrar
                         </Button>
 
-                        {dropRemoverMenu()}        
+                        {dropListarMenu()}        
                                 
                     </Box>
                 </Toolbar>
