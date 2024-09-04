@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var pokemonServices = require ("../services/pokemon.services");
+var pokemonServiceMongo = require("../services/pokemon.services.mongo")
+
+/* Aqui os metodos foi somente de teste utilizando apenas o Express
 
 // Metodo GET para todos os pokemons //
 router.get('/', (req, res, next)=>{
@@ -35,6 +38,31 @@ router.delete('/:id', (req, res, next)=>{
         if(ok) return res.json({ "sucess": true})
         else return res.json ({"sucess": false})
     }
+)*/
+
+router.get('/', (req, res, next)=>{
+    pokemonServiceMongo.list(req, res)
+}
+)
+
+router.post('/', (req, res, next)=> {
+    pokemonServiceMongo.register(req, res)
+}
+)
+
+router.get('/:id', (req, res, next)=>{
+    pokemonServiceMongo.retrieve(req, res)
+}
+)
+
+router.put('/:id', (req, res, next)=>{
+    pokemonServiceMongo.update(req, res)
+}
+)
+
+router.delete('/:id', (req, res, next)=>{
+    pokemonServiceMongo.delete(req, res)
+}
 )
 
 module.exports = router;

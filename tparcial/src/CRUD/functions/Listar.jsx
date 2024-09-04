@@ -20,7 +20,7 @@ const Listar = () => {
         if(window.confirm("Deseja excluir?")){
             alert("Pokemon excluido com sucesso!")
             axios.delete(`http://localhost:3001/pokemons/${id}`).then((response)=>{ 
-                const novaLista = pokemons.filter(pokemon => pokemon.id != id)
+                const novaLista = pokemons.filter(pokemon => pokemon._id != id)
                 setPokemons(novaLista)
              })
             .catch(error=>console.log(error))
@@ -50,18 +50,18 @@ const Listar = () => {
                         pokemons.map(
                             (pokemon)=>{
                                 return(
-                                    <TableRow key={pokemon.id}>
-                                        <TableCell>{pokemon.id}</TableCell>
+                                    <TableRow key={pokemon._id}>
+                                        <TableCell>{pokemon._id}</TableCell>
                                         <TableCell><img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.sprite}.png `} style={{width:"80px"}}/></TableCell>
                                         <TableCell>{pokemon.nome}</TableCell>
                                         <TableCell>{pokemon.tipo}</TableCell>
                                         <TableCell>{pokemon.tipo2}</TableCell>
                                         <TableCell>
                                             <Box>
-                                                <IconButton aria-label="edit" color="primary" component={Link} to={`/editarPokemon/${pokemon.id}`}>
+                                                <IconButton aria-label="edit" color="primary" component={Link} to={`/editarPokemon/${pokemon._id}`}>
                                                     <Edit />
                                                 </IconButton>
-                                                <IconButton aria-label="delete" color="error" onClick={()=>deletePokemonById(pokemon.id)}>
+                                                <IconButton aria-label="delete" color="error" onClick={()=>deletePokemonById(pokemon._id)}>
                                                     <Delete />
                                                 </IconButton>
                                             </Box>
