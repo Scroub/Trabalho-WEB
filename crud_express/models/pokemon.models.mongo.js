@@ -2,7 +2,7 @@ var mongoose = require("mongoose")
 
 var pokemonSchema = mongoose.Schema(
     {
-        sprite: {type:"number", required:true},
+        sprite: {type:Number, required:true},
         nome: {type:String, required:true},
         tipo: {type:String, required:true},
         tipo2: {type:String, required:true}
