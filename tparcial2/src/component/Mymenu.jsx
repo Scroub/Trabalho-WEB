@@ -5,8 +5,9 @@ import dayjs from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import 'dayjs/locale/pt-br'
+import axios from "axios";
 
 const Mymenu = () => {
 
@@ -14,9 +15,7 @@ const Mymenu = () => {
     const [nome, setNome] = useState("")
     const [valor, setValor] = useState("")
     const [id, setId] = useState("")
-    /*const [cadastros, setCadastros] = useState ([{id:id, nome:nome, valor:valor}])*/
-
-   const [cadastros, setCadastros] = useState ([{id:0, nome:"Iury", Date:Date.d ,valor:"10"}])
+    const [cadastros, setCadastros] = useState ([])
 
     function Calendar () {
         return(
@@ -28,15 +27,34 @@ const Mymenu = () => {
             />
             </LocalizationProvider>
         )
-        
     }
-    
+
+    function SomaValores (){
+        return cadastros.reduce((soma ,cadastro) => soma + parseFloat(cadastro.valor), 0)
+    }
+
     function handlesubmit (event) {
-        event.preventDefault()
-        console.log(nome)
-        console.log(Date)
-        console.log(valor)
-        
+        const newCadastro = {id, nome, Date, valor}
+        axios.post("http://localhost:3001/cadastros", newCadastro).then((response)=> { alert("Item Cadastrado")})
+        .catch(error=>console.log(error))
+    }
+
+    useEffect(
+        ()=> {
+            axios.get("http://localhost:3001/cadastros").then((response)=>{ setCadastros(response.data) })
+            .catch(error => console.log(error))
+        }, []
+    )
+
+    function deleteRegistrosById (id){
+        if(window.confirm("Deseja excluir?")){
+            alert("Registro excluido com sucesso!")
+            axios.delete(`http://localhost:3001/cadastros/${id}`).then((response)=>{ 
+                const novaLista = cadastros.filter(cadastros => cadastros.id != id)
+                setCadastros(novaLista)
+             })
+            .catch(error=>console.log(error))
+        }
     }
 
     return(
@@ -61,7 +79,7 @@ const Mymenu = () => {
                     autoFocus
                     onChange={(event) => setNome(event.target.value)}
                 />
-                    
+                
                 {Calendar()}
 
                 <TextField 
@@ -84,7 +102,7 @@ const Mymenu = () => {
             </Box>
 
             <Typography variant="h6" ml={20} fontFamily={"Bold"}>
-                Total de Gasto: R$ {valor}
+                Total de Gasto: R$ {SomaValores()}
             </Typography>
 
         <TableContainer sx={{mt:4, mb:4}}>
@@ -107,7 +125,7 @@ const Mymenu = () => {
                                         <TableCell>{cadastros.valor}</TableCell>
                                         <TableCell>
                                             <Box>
-                                                <IconButton aria-label="delete" color="error">
+                                                <IconButton aria-label="delete" color="error" onClick={()=>deleteRegistrosById(cadastros.id)}>
                                                     <Delete />
                                                 </IconButton>
                                             </Box>

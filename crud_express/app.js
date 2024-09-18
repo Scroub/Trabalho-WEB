@@ -3,7 +3,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-require("./db/mongo.connection")
+// require("./db/mongo.connection")
 
 var users = require('./routes/users');
 var pokemons = require('./routes/pokemons')
@@ -21,7 +21,7 @@ app.use(function (req, res, next) {
     next();
 })
 
-app.use('/api/v1/users', users);
-app.use('/pokemons/', pokemons);
+app.use('/cadastros/', users);
+// app.use('/pokemons/', pokemons);
 
 module.exports = app;
