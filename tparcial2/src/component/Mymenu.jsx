@@ -102,7 +102,7 @@ const Mymenu = () => {
             </Box>
 
             <Typography variant="h6" ml={20} fontFamily={"Bold"}>
-                Total de Gasto: R$ {SomaValores()}
+                Total de Gasto: R$ {SomaValores().toFixed(2)}
             </Typography>
 
         <TableContainer sx={{mt:4, mb:4}}>
