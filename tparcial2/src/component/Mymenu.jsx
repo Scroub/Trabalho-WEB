@@ -11,7 +11,7 @@ import axios from "axios";
 
 const Mymenu = () => {
 
-    const [Date, setDate] = useState(dayjs())
+    const [date, setdate] = useState(dayjs())
     const [nome, setNome] = useState("")
     const [valor, setValor] = useState("")
     const [id, setId] = useState("")
@@ -22,8 +22,8 @@ const Mymenu = () => {
             <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br">
                 <DatePicker
                 label="Data"
-                value={Date}
-                onChange={(newDate) => setDate(newDate)}
+                value={date}
+                onChange={(newdate) => setdate(newdate)}
             />
             </LocalizationProvider>
         )
@@ -34,7 +34,8 @@ const Mymenu = () => {
     }
 
     function handlesubmit (event) {
-        const newCadastro = {id, nome, Date, valor}
+        const formattedDate = date.format("DD-MM-YYYY");
+        const newCadastro = { id, nome, date: formattedDate, valor }
         axios.post("http://localhost:3001/cadastros", newCadastro).then((response)=> { alert("Item Cadastrado")})
         .catch(error=>console.log(error))
     }
@@ -121,7 +122,7 @@ const Mymenu = () => {
                                 return(
                                     <TableRow key={cadastros.id}>
                                         <TableCell>{cadastros.nome}</TableCell>
-                                        <TableCell>{cadastros.Date}</TableCell>
+                                        <TableCell>{cadastros.date}</TableCell>
                                         <TableCell>{cadastros.valor}</TableCell>
                                         <TableCell>
                                             <Box>
