@@ -109,7 +109,7 @@ const Mymenu = () => {
         <TableContainer sx={{mt:4, mb:4}}>
             <Table sx={{minWidth:650}} aria-label="simple table">
                 <TableHead>
-                    <TableRow >
+                    <TableRow>
                         <TableCell>Nome</TableCell>
                         <TableCell>Data</TableCell>
                         <TableCell>Valor</TableCell>
